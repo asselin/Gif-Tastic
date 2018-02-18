@@ -13,3 +13,5 @@ Click [here](https://benrgarcia.github.io/Gif-tastic/) to see the live site
 * Click generated tags to execute search 
 
 * GIPHY API returns gifs based on keyword
+
+> Project config instructions [here](https://github.com/BenRGarcia/Vue-CLI-Notes/blob/master/README.md)
