@@ -13,3 +13,8 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+$(function () {
+  $('[data-toggle="popover"]').popover(); // this will enable Bootstrap's popovers if you need them
+  $('[data-toggle="tooltip"]').tooltip(); // this will enable Bootstrap's tooltips if you need them
+})
