@@ -2,7 +2,7 @@
 
 > A Vue.js project created with Vue.js CLI's webpack template + bootstrap v4
 
-Click [here](https://benrgarcia.github.io/Gif-tastic/) to see the live site
+Click [here](https://benrgarcia.github.io/Gif-Tastic/) to see the live site
 
 ## Description
 
