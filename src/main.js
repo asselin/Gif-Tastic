@@ -2,8 +2,8 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
-import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 Vue.config.productionTip = false
 
@@ -14,7 +14,8 @@ new Vue({
   template: '<App/>'
 })
 
+// Bootstrap
 $(function () {
-  $('[data-toggle="popover"]').popover(); // this will enable Bootstrap's popovers if you need them
-  $('[data-toggle="tooltip"]').tooltip(); // this will enable Bootstrap's tooltips if you need them
+  $('[data-toggle="popover"]').popover(); // enable Bootstrap's popovers
+  $('[data-toggle="tooltip"]').tooltip(); // enable Bootstrap's tooltips
 })
