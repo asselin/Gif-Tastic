@@ -33,7 +33,7 @@ export const controller = {
 
 // API call to GIPHY
 export const giphyAPI = {
-  baseURL: "http://api.giphy.com/v1/gifs/search?",
+  baseURL: "https://api.giphy.com/v1/gifs/search?",
   apiKey: "yZgwRMNKMUe6DZ9WDUONVc4R1kCEEGFA",
   limit: 6,
 
@@ -51,7 +51,6 @@ export const giphyAPI = {
   makeQueryURL(query) {
     let queryURL = `${this.baseURL}q=${query}&limit=${this.limit}&api_key=${this.apiKey}`;
     this.callAPI(queryURL);
-    console.log(queryURL);
   },
 
   // Make API call, return response (but only the '.data', for gif object array)
