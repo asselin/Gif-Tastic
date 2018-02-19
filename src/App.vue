@@ -58,16 +58,3 @@ export default {
   }
 }
 </script>
-
-<style>
-@import url('https://fonts.googleapis.com/css?family=Ubuntu');
-
-body {
-  background: url('./assets/dogs-bones-bg.jpg') top fixed;
-  text-align: center;
-  color: #fff;
-  font-family: 'Ubuntu', sans-serif;
-  font-size: 1.3rem;
-  margin-bottom: 30px;
-}
-</style>
