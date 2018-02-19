@@ -67,27 +67,17 @@ const gifSearchResults = {
 
     toggleSrc(imageClicked) {
 
-      console.log(`which image was clicked?`);
-      console.log(imageClicked.src);
-
       const imgSrc = imageClicked.src;
-      console.log(`tempImg src: ${imgSrc}`);
 
       // Iterate over gif object array
       for (let i = 0; i < gifSearchResults.gifObjects.length; i++) {
-        console.log(`For loop says:`);
-        console.log(gifSearchResults.gifObjects[i]);
         // If still image
         if (imgSrc === gifSearchResults.gifObjects[i].images.original_still.url) {
-          console.log(`We have a static match at index ${i}`);
           imageClicked.src = gifSearchResults.gifObjects[i].images.original.url;
-          console.log(`imageClicked.src set to ${imageClicked.src}`);
         }
         // If animated gif
         if (imgSrc === gifSearchResults.gifObjects[i].images.original.url) {
-          console.log(`We have an animated match at index ${i}`);
           imageClicked.src = gifSearchResults.gifObjects[i].images.original_still.url;
-          console.log(`imageClicked.src set to ${imageClicked.src}`);
         }
       }
     }
