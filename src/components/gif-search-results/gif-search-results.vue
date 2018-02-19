@@ -1,55 +1,118 @@
 <template>
   <div id="gifs">
-    <h1>GifResults Here</h1>
-    <!-- How GIFs should appear on the page -->
-    <img src="https://media3.giphy.com/media/pjnfNhaFmkhxu/giphy_s.gif" alt="">
-    <img src="https://media3.giphy.com/media/pjnfNhaFmkhxu/giphy.gif" alt="">
   </div>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        apiEndPoint: "http://api.giphy.com/v1/gifs/search?",
-        qPrefix: "q=",
-        qKeywords: "",
-        and: "&",
-        apiKey: "api_key=yZgwRMNKMUe6DZ9WDUONVc4R1kCEEGFA",
-        limit: "limit",
-        limitNumber: 5,
-        gifArray: [
-          {},
-        ]
+// https://www.hongkiat.com/blog/on-click-animated-gif/
+import Vue from 'vue'
+
+const gifSearchResults = {
+
+  gifObjects:    [], // Stores GIPHY API response.data's array of objects
+  preloadedGifs: [], // Stores preloaded gifs to avoid gif loading delay after click
+
+  methods: {
+
+    clearState() {
+      gifSearchResults.gifObjects = [];
+      gifSearchResults.images = [];
+      gifSearchResults.preloadedGifs = [];
+    },
+
+    loadAPIResponse(obj) {
+      gifSearchResults.gifObjects.push(obj);
+    },
+
+    // Transform API Response into array of static images
+    loadImgs() {
+      $("#gifs").empty();
+
+      // Iterate over objects in response.data array...
+      $.each( gifSearchResults.gifObjects, function(index) {
+
+        let newDiv = $('<div>');
+
+        // Save some keystrokes
+        let imgObj = gifSearchResults.gifObjects[index].images;
+
+        let staticImage = imgObj.original_still.url;
+        let animatedGif = imgObj.original.url;
+        let rating = gifSearchResults.gifObjects[index].rating.toUpperCase();
+        $("#gifs").append(`<div class="col-4 card gif pt-2"><img class="card-img-top img" src="${staticImage}" data-alt="${animatedGif}"><div class="card-body"><p class="rating mb-0">Rating: ${rating}</p></div></div>`);        
+      });
+
+      // gifSearchResults.methods.preloadGifs();
+    },
+
+    preloadGifs() {
+      // Remove previously loaded Gifs
+      gifSearchResults.preloadedGifs = [];
+
+      // To store all animated gif's 'src=' path
+      let gifSrcPaths = [];
+
+      // Iterate over page <img>'s attribute "data-alt"
+      $('img').each( function() {
+        let data = $( this ).data('alt');
+        gifSrcPaths.push(data);
+      });
+
+      // Use 'new Image()' constructor to store fully loaded Gifs
+      $.each(gifSrcPaths, function(index) {
+        this.preloadedGifs[index] = new Image();
+        this.preloadedGifs[index].src = gifSrcPaths[index];
+      });
+    },
+
+    toggleSrc(imageClicked) {
+
+      console.log(`which image was clicked?`);
+      console.log(imageClicked.src);
+
+      const imgSrc = imageClicked.src;
+      console.log(`tempImg src: ${imgSrc}`);
+
+      // Iterate over gif object array
+      for (let i = 0; i < gifSearchResults.gifObjects.length; i++) {
+        console.log(`For loop says:`);
+        console.log(gifSearchResults.gifObjects[i]);
+        // If still image
+        if (imgSrc === gifSearchResults.gifObjects[i].images.original_still.url) {
+          console.log(`We have a static match at index ${i}`);
+          imageClicked.src = gifSearchResults.gifObjects[i].images.original.url;
+          console.log(`imageClicked.src set to ${imageClicked.src}`);
+        }
+        // If animated gif
+        if (imgSrc === gifSearchResults.gifObjects[i].images.original.url) {
+          console.log(`We have an animated match at index ${i}`);
+          imageClicked.src = gifSearchResults.gifObjects[i].images.original_still.url;
+          console.log(`imageClicked.src set to ${imageClicked.src}`);
+        }
       }
     }
   }
-
-// Sample ajax request:
-// http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=yZgwRMNKMUe6DZ9WDUONVc4R1kCEEGFA&limit=1
-
-/* SUPER IMPORTANT INSTRUCTIONS */
-
-// STILL IMAGE SAMPLE <img src="https://media3.giphy.com/media/pjnfNhaFmkhxu/giphy_s.gif">
-  // Access: gifRepo.gifs[i].data.original_still.url
-  //         gifRepo.gifs[i].data.original_still.width
-  //         gifRepo.gifs[i].data.original_still.height
-
-// ANIMATED GIF       <img src="https://media3.giphy.com/media/pjnfNhaFmkhxu/giphy.gif">
-  // Access: gifRepo.gifs[i].data.original.url
-    //       gifRepo.gifs[i].data.original.width
-    //       gifRepo.gifs[i].data.original.height
-
-// const sampleLink1 = `${apiEndPoint}${qPrefix}${qKeywords}&${apiKey}&${limit}${limitNumber}`;
-// const sampleLink2 = apiEndPoint + qPrefix + qKeywords + and + apiKey + and + limit + limitNumber;
-
-  /*
-   * var xhr = $.get("http://api.giphy.com/v1/gifs/search?q=ryan+gosling&api_key=yZgwRMNKMUe6DZ9WDUONVc4R1kCEEGFA&limit=5");
-   * xhr.done(function(data) { console.log("success got data", data); });
-   */
-
-  /*
-   * Sample endpoint for just 1 gif:
-   *     https://giphy.com/embed/l3q2tiaI2wwVUTpJe
-   */
+}
+export default gifSearchResults;
 </script>
+
+<style>
+.gif {
+  border: 3px solid #fff;
+  border-radius: 4px;
+  margin: 0.5rem;
+  margin-top: 0;
+}
+.rating {
+  display: inline-block;
+}
+.card-body {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.card {
+  display: inline-block;
+  max-width: 290px;
+  background: rgba(25,25,25,0.5);
+}
+</style>
