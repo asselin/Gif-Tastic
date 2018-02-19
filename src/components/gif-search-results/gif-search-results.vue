@@ -95,24 +95,3 @@ const gifSearchResults = {
 }
 export default gifSearchResults;
 </script>
-
-<style>
-.gif {
-  border: 3px solid #fff;
-  border-radius: 4px;
-  margin: 0.5rem;
-  margin-top: 0;
-}
-.rating {
-  display: inline-block;
-}
-.card-body {
-  padding-top: 0;
-  padding-bottom: 0;
-}
-.card {
-  display: inline-block;
-  max-width: 290px;
-  background: rgba(25,25,25,0.5);
-}
-</style>
