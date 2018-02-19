@@ -36,12 +36,8 @@
           { tag: "rottweiler"},
           { tag: "poodle"},
           { tag: "german shepherd"},
-          { tag: "irish wolf hound"},
           { tag: "daschund"},
-          { tag: "samoyed"},
-          { tag: "puggle"},
           { tag: "beagle"},
-          { tag: "bulldog"},
         ],
         tagClassArray: ["badge", "badge-pill", "badge-secondary", "m-1", "list-item"]
       }
