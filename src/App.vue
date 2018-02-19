@@ -33,6 +33,19 @@ import pageTitle from './components/page-title/page-title'
 import pageFooter from './components/page-footer/page-footer'
 import gifSearchTags from './components/gif-search-tags/gif-search-tags'
 import gifSearchResults from './components/gif-search-results/gif-search-results'
+import { controller, giphyAPI } from './components/gif-search-results/giphy-api-call'
+
+// Click event listener
+$(function() {
+  $('#app').on('click', ".badge", e => {
+    let clickValue = $(e.target).text().trim();
+    controller.clickHandler(clickValue);
+  });
+
+  $('#app').on('click', ".img", e => {
+    controller.toggleGif(e.target);
+  });
+});
 
 export default {
   name: 'App',
@@ -47,11 +60,7 @@ export default {
 </script>
 
 <style>
- @import url('https://fonts.googleapis.com/css?family=Ubuntu');
-
- html, body, #app {
-  height: 100%;
- }
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
 
 body {
   background: url('./assets/dogs-bones-bg.jpg') top fixed;
@@ -59,5 +68,6 @@ body {
   color: #fff;
   font-family: 'Ubuntu', sans-serif;
   font-size: 1.3rem;
+  margin-bottom: 30px;
 }
 </style>
