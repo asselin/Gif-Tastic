@@ -23,6 +23,7 @@ const gifSearchResults = {
   methods: {
 
     clearState() {
+      $("#gifs").empty();
       gifSearchResults.gifObjects = [];
       gifSearchResults.preloadedGifs = [];
     },
