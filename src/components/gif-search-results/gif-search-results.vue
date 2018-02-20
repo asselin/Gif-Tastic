@@ -1,6 +1,15 @@
 <template>
-  <div id="gifs">
+
+  <div class="row">
+    <div class="col-8 offset-2 title mb-2">
+      3) Click images to toggle gif animation
+    </div>
+
+    <div id="gifs" class="col-12">
+      <!-- Gifs append here -->
+    </div>
   </div>
+
 </template>
 
 <script>
@@ -16,7 +25,6 @@ const gifSearchResults = {
 
     clearState() {
       gifSearchResults.gifObjects = [];
-      gifSearchResults.images = [];
       gifSearchResults.preloadedGifs = [];
     },
 
@@ -31,8 +39,6 @@ const gifSearchResults = {
       // Iterate over objects in response.data array...
       $.each( gifSearchResults.gifObjects, function(index) {
 
-        let newDiv = $('<div>');
-
         // Save some keystrokes
         let imgObj = gifSearchResults.gifObjects[index].images;
 
@@ -42,27 +48,23 @@ const gifSearchResults = {
         $("#gifs").append(`<div class="col-4 card gif pt-2"><img class="card-img-top img" src="${staticImage}" data-alt="${animatedGif}"><div class="card-body"><p class="rating mb-0">Rating: ${rating}</p></div></div>`);        
       });
 
-      // gifSearchResults.methods.preloadGifs();
+      gifSearchResults.methods.preloadGifs();
     },
 
     preloadGifs() {
       // Remove previously loaded Gifs
       gifSearchResults.preloadedGifs = [];
 
-      // To store all animated gif's 'src=' path
-      let gifSrcPaths = [];
+      let gifsToLoad = gifSearchResults.gifObjects;
+      let loadedGifs = gifSearchResults.preloadedGifs;
 
-      // Iterate over page <img>'s attribute "data-alt"
-      $('img').each( function() {
-        let data = $( this ).data('alt');
-        gifSrcPaths.push(data);
+      // Iterate over gif objects, add img objects to array 
+      $.each( gifsToLoad, function(index) {
+        loadedGifs[index] = new Image();
+        loadedGifs[index].src = gifsToLoad[index].images.original.url;
       });
-
-      // Use 'new Image()' constructor to store fully loaded Gifs
-      $.each(gifSrcPaths, function(index) {
-        this.preloadedGifs[index] = new Image();
-        this.preloadedGifs[index].src = gifSrcPaths[index];
-      });
+      console.log(`preloadedGifs are:`);
+      console.log(gifSearchResults.preloadedGifs);
     },
 
     toggleSrc(imageClicked) {
@@ -85,3 +87,11 @@ const gifSearchResults = {
 }
 export default gifSearchResults;
 </script>
+
+<style scoped>
+.title  {
+    background: rgba(25,25,25,0.5);
+    border: 3px solid #fff;
+    border-radius: 10px;
+  }
+</style>
