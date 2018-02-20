@@ -63,8 +63,6 @@ const gifSearchResults = {
         loadedGifs[index] = new Image();
         loadedGifs[index].src = gifsToLoad[index].images.original.url;
       });
-      console.log(`preloadedGifs are:`);
-      console.log(gifSearchResults.preloadedGifs);
     },
 
     toggleSrc(imageClicked) {
