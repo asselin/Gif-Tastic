@@ -13,7 +13,6 @@
 </template>
 
 <script>
-// https://www.hongkiat.com/blog/on-click-animated-gif/
 import Vue from 'vue'
 
 const gifSearchResults = {
