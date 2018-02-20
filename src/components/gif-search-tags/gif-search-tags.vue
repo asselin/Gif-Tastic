@@ -47,7 +47,7 @@
         if (this.tags.length < 25) {
           if (this.newTag.length > 2) {
             if (this.newTag.length < 21) {
-              this.formLabel = "Type in dog breed:";
+              this.formLabel = "1) Add a dog breed:";
               this.tags.push({tag: this.newTag});
               this.newTag = '';
             } else {this.formLabel = "Input is too long!";}
