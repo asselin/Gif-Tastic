@@ -15,10 +15,10 @@
 
     <div class="row">
       <div class="col-12">
-        <gifSearchTags/>
+        <gifSearchTags @clickBadge="searchGifs"/>
       </div>
       <div class="col-12">
-        <gifSearchResults/>
+        <gifSearchResults :results="gifResults"/>
       </div>
     </div>
 
@@ -33,19 +33,7 @@ import pageTitle from './components/page-title/page-title'
 import pageFooter from './components/page-footer/page-footer'
 import gifSearchTags from './components/gif-search-tags/gif-search-tags'
 import gifSearchResults from './components/gif-search-results/gif-search-results'
-import { controller, giphyAPI } from './components/gif-search-results/giphy-api-call'
-
-// Click event listener
-$(function() {
-  $('#app').on('click', ".badge", e => {
-    let clickValue = $(e.target).text().trim();
-    controller.clickHandler(clickValue);
-  });
-
-  $('#app').on('click', ".img", e => {
-    controller.toggleGif(e.target);
-  });
-});
+import { giphyAPI } from './components/gif-search-results/giphy-api-call'
 
 export default {
   name: 'App',
@@ -55,6 +43,22 @@ export default {
     pageFooter,
     gifSearchTags,
     gifSearchResults
+  },
+
+  data: function() {
+    return {
+      gifResults: []
+    }
+  },
+
+  methods: {
+    searchGifs(keyword) {
+      giphyAPI.search(keyword).then(
+        function(results) {
+          this.gifResults = results;
+        }.bind(this)
+      );
+    }
   }
 }
 </script>

@@ -14,9 +14,8 @@
     <div class="col-12 tag-cloud mb-2">
       <div>2) Click tag to see GIFs</div>
       <transition-group name="list" tag="span">
-        <span :class="[tagClassArray]" v-for="(data, index) in tags" :key='index'>
-          {{ data.tag }}
-        </span>
+        <gifSearchTag @clickBadge="clickBadge" v-for="(data, index) in tags" :key='index' :badgeName="data">
+        </gifSearchTag>
       </transition-group>
     </div>
 
@@ -24,22 +23,25 @@
 </template>
 
 <script>
+  import gifSearchTag from './gif-search-tag'
+
   export default {
-    name: "InputField",
+    components: {
+      gifSearchTag
+    },
     data() {
       return {
         formLabel: "1) Add a dog breed:",
         placeHolder: "ex. chihuahua",
         newTag: '',
         tags: [
-          { tag: "labrador"},
-          { tag: "rottweiler"},
-          { tag: "poodle"},
-          { tag: "german shepherd"},
-          { tag: "daschund"},
-          { tag: "beagle"},
-        ],
-        tagClassArray: ["badge", "badge-pill", "badge-secondary", "m-1", "list-item"]
+          "labrador",
+          "rottweiler",
+          "poodle",
+          "german shepherd",
+          "daschund",
+          "beagle",
+        ]
       }
     },
     methods: {
@@ -48,7 +50,7 @@
           if (this.newTag.length > 2) {
             if (this.newTag.length < 21) {
               this.formLabel = "1) Add a dog breed:";
-              this.tags.push({tag: this.newTag});
+              this.tags.push(this.newTag);
               this.newTag = '';
             } else {this.formLabel = "Input is too long!";}
           } else {this.formLabel = "Input is too short!";}
@@ -62,21 +64,15 @@
         } else {
           this.formLabel = "Invalid input!";
         }
+      },
+      clickBadge(badgeName) {
+        this.$emit("clickBadge", badgeName);
       }
     }
   }
 </script>
 
 <style scoped>
-  .list-item {
-    display: inline-block;
-    margin-right: 10px;
-    border: 1px solid #fff;
-    cursor: pointer;
-  }
-  .list-item:hover {
-    opacity: 0.9;
-  }
   .list-enter-active, .list-leave-active {
     transition: all 1s;
   }
@@ -99,8 +95,5 @@
     border: 3px solid #333;
     border-radius: 4px;
     text-align: center;
-  }
-  .badge {
-    font-size: 85%;
   }
 </style>
