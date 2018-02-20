@@ -9,6 +9,8 @@ export const controller = {
 
     // Screen out multiple clicks of same tag
     if (keyword !== this.lastSearch) {
+      this.lastSearch = keyword;
+
       // Clear previous state of component object
       gifSearchResults.methods.clearState();
       // Call object method to make api call, receive reponse returned
